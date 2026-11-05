@@ -186,7 +186,7 @@ export const INITIAL_USERS: User[] = [
     id: 'user-admin',
     username: 'alfacleanmaster@gmail.com',
     email: 'alfacleanmaster@gmail.com',
-    password: 'AlfaClean2026Master!',
+    password: 'Saferoo##44H%',
     role: 'admin',
     name: 'مدير النظام (App Administrator)',
     phone: '+971 50 100 0001',

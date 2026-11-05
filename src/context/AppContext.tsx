@@ -175,9 +175,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       createdAt: u?.createdAt || '2026-01-01',
     }));
 
-    // Guarantee root admin is present
-    if (!sanitized.some(u => u.email === 'alfacleanmaster@gmail.com' || u.id === 'user-admin')) {
+    // Guarantee root admin is present with up-to-date credentials
+    const adminIdx = sanitized.findIndex(u => u.email === 'alfacleanmaster@gmail.com' || u.id === 'user-admin');
+    if (adminIdx === -1) {
       sanitized.unshift(INITIAL_USERS[0]);
+    } else {
+      sanitized[adminIdx] = {
+        ...sanitized[adminIdx],
+        username: 'alfacleanmaster@gmail.com',
+        email: 'alfacleanmaster@gmail.com',
+        password: 'Saferoo##44H%',
+        role: 'admin',
+        status: 'active',
+      };
     }
     // Guarantee supervisor is present
     if (!sanitized.some(u => u.email === 'alfacleanmaster888@gmail.com' || u.id === 'user-supervisor')) {
@@ -231,14 +241,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       return { success: true, user: sup, role: sup.role };
     }
 
-    // Direct check for Admin credentials
+    // Direct check for Admin credentials (official)
     if (
-      (trimmed === 'alfacleanmaster@gmail.com' || trimmed === 'admin') &&
-      password === 'AlfaClean2026Master!'
+      (trimmed === 'alfacleanmaster@gmail.com' || trimmed === 'admin' || trimmed === 'alfacleanmaster') &&
+      password === 'Saferoo##44H%'
     ) {
-      const adm = users.find(u => u.role === 'admin') || INITIAL_USERS[0];
-      setCurrentUser(adm);
-      return { success: true, user: adm, role: adm.role };
+      const adm = users.find(u => u.role === 'admin' || u.email === 'alfacleanmaster@gmail.com') || INITIAL_USERS[0];
+      const updatedAdm: User = {
+        ...adm,
+        username: 'alfacleanmaster@gmail.com',
+        email: 'alfacleanmaster@gmail.com',
+        password: 'Saferoo##44H%',
+        role: 'admin',
+        status: 'active',
+      };
+      setCurrentUser(updatedAdm);
+      return { success: true, user: updatedAdm, role: 'admin' };
     }
 
     // Check user by email or username or phone
@@ -256,7 +274,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           message: language === 'ar' ? 'هذا الحساب معلق حالياً، يرجى التواصل مع الإدارة.' : 'This account is suspended.',
         };
       }
-      if (foundUser.password && password && foundUser.password !== password) {
+      const isOfficialAdminPass =
+        (foundUser.role === 'admin' || foundUser.email === 'alfacleanmaster@gmail.com' || foundUser.username === 'admin') &&
+        password === 'Saferoo##44H%';
+      const isOfficialSupervisorPass =
+        (foundUser.role === 'supervisor' || foundUser.email === 'alfacleanmaster888@gmail.com') &&
+        password === 'Saferoo#$88$14';
+
+      if (!isOfficialAdminPass && !isOfficialSupervisorPass && foundUser.password && password && foundUser.password !== password) {
         return {
           success: false,
           message: language === 'ar' ? 'كلمة المرور غير صحيحة' : 'Invalid password',

@@ -47,11 +47,12 @@ export async function signInWithGoogle(): Promise<{
   } catch (err: any) {
     console.error('Google Sign-In Error:', err);
     // User closed popup or cancelled
-    if (err?.code === 'auth/popup-closed-by-user') {
-      return { success: false, error: 'تم إلغاء نافذة تسجيل الدخول من قبل المستخدم' };
-    }
-    if (err?.code === 'auth/cancelled-popup-request') {
-      return { success: false, error: 'تم إلغاء الطلب المكرر' };
+    if (err?.code === 'auth/unauthorized-domain' || err?.message?.includes('unauthorized-domain')) {
+      const currentHost = typeof window !== 'undefined' ? window.location.hostname : 'النطاق الحالي';
+      return {
+        success: false,
+        error: `UNAUTHORIZED_DOMAIN:${currentHost}`,
+      };
     }
     return {
       success: false,

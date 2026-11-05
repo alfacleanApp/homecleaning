@@ -281,12 +281,54 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         )}
 
         {/* Feedback Messages */}
-        {errorMessage && (
+        {errorMessage && errorMessage.includes('UNAUTHORIZED_DOMAIN') ? (
+          <div className="p-3.5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 text-xs space-y-2 animate-in fade-in">
+            <div className="flex items-center gap-2 font-black text-amber-900">
+              <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>
+                {language === 'ar'
+                  ? 'خطوة بسيطة: إضافة نطاق الموقع لمشروع Firebase'
+                  : 'Action required: Authorize domain in Firebase'}
+              </span>
+            </div>
+            <p className="text-[11px] text-amber-800 leading-relaxed">
+              {language === 'ar'
+                ? 'لحماية الأمان، يتطلب تسجيل الدخول عبر Google إضافة نطاق موقعك الحالي إلى قائمة النطاقات المصرح بها في Firebase Console:'
+                : 'To enable Google Sign-In on your Cloudflare deployment, please add this domain in Firebase Console > Authentication > Settings > Authorized domains:'}
+            </p>
+            <div className="p-2 rounded-xl bg-white border border-amber-200 font-mono font-bold text-slate-800 flex items-center justify-between gap-2">
+              <span className="text-[11px] truncate">
+                {errorMessage.split(':')[1] || (typeof window !== 'undefined' ? window.location.hostname : '')}
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  const domainToCopy = errorMessage.split(':')[1] || window.location.hostname;
+                  navigator.clipboard.writeText(domainToCopy);
+                  alert(
+                    language === 'ar'
+                      ? `تم نسخ النطاق (${domainToCopy})!\nالآن اذهب إلى Firebase Console > Authentication > Settings > Authorized domains واضغط Add domain.`
+                      : `Copied domain (${domainToCopy})!`
+                  );
+                }}
+                className="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-[10px] shrink-0 cursor-pointer"
+              >
+                {language === 'ar' ? 'نسخ النطاق' : 'Copy Domain'}
+              </button>
+            </div>
+            <div className="pt-1 text-[11px] text-slate-700 bg-amber-100/60 p-2 rounded-xl">
+              💡 <strong>{language === 'ar' ? 'حل فوري وسريع:' : 'Instant alternative:'}</strong>{' '}
+              {language === 'ar'
+                ? 'يمكنك إنشاء حساب جديد أو تسجيل الدخول فوراً بالبريد الإلكتروني وكلمة المرور من الخيار أدناه دون الحاجة لانتظار الربط!'
+                : 'You can sign up or sign in instantly with email and password below!'}
+            </div>
+          </div>
+        ) : errorMessage ? (
           <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
             <span>{errorMessage}</span>
           </div>
-        )}
+        ) : null}
 
         {successMessage && (
           <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-2">
