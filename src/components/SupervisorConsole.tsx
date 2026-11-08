@@ -548,6 +548,18 @@ export const SupervisorConsole: React.FC = () => {
           <Sparkles className="w-4 h-4 text-amber-600" />
           <span>{language === 'ar' ? 'الهوية وميديا التواصل الاجتماعي' : 'Brand & Social Share'}</span>
         </button>
+
+        {/* PRD DOCUMENT DIRECT DOWNLOAD (ADMIN EXCLUSIVE) */}
+        <a
+          href="/downloads/alfa_clean_prd_safeer.html"
+          download="alfa_clean_prd_safeer.html"
+          className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black flex items-center gap-2 whitespace-nowrap transition-all text-sky-800 bg-sky-50 hover:bg-sky-100 border border-sky-200 shadow-xs ml-auto"
+          title="تحميل وثيقة متطلبات النظام المعتمدة (PRD) إلى جهازك مباشرة"
+        >
+          <FileText className="w-4 h-4 text-sky-600" />
+          <span>{language === 'ar' ? 'تحميل وثيقة المتطلبات (PRD)' : 'Download PRD Document'}</span>
+          <Download className="w-3.5 h-3.5 text-sky-700" />
+        </a>
       </div>
 
       {/* ============================================================== */}
