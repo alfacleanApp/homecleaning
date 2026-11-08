@@ -79,17 +79,6 @@ export const Footer: React.FC = () => {
                   {language === 'ar' ? 'المحفظة واستبدال النقاط' : 'Wallet & Points Rewards'}
                 </button>
               </li>
-              <li>
-                <a
-                  href="/prd.html"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-amber-400 transition-colors flex items-center gap-1.5 pt-1 text-slate-400 hover:text-amber-300 font-semibold"
-                >
-                  <span>📄</span>
-                  <span>{language === 'ar' ? 'وثيقة متطلبات المنتج (PRD)' : 'Product Requirements (PRD)'}</span>
-                </a>
-              </li>
             </ul>
           </div>
 

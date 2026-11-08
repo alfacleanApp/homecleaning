@@ -548,19 +548,6 @@ export const SupervisorConsole: React.FC = () => {
           <Sparkles className="w-4 h-4 text-amber-600" />
           <span>{language === 'ar' ? 'الهوية وميديا التواصل الاجتماعي' : 'Brand & Social Share'}</span>
         </button>
-
-        {/* PRD DOCUMENT LINK */}
-        <a
-          href="/prd.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 whitespace-nowrap transition-all text-slate-700 bg-slate-100 hover:bg-sky-50 hover:text-sky-700 border border-slate-200"
-          title="استعراض وثيقة متطلبات المنتج (PRD) المعتمدة"
-        >
-          <FileText className="w-4 h-4 text-sky-600" />
-          <span>{language === 'ar' ? 'وثيقة المتطلبات (PRD)' : 'PRD Document'}</span>
-          <span className="text-[10px] bg-sky-100 text-sky-700 px-1.5 py-0.5 rounded font-mono font-bold">HTML</span>
-        </a>
       </div>
 
       {/* ============================================================== */}
