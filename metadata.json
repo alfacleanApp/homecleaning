@@ -1,0 +1,7 @@
+{
+  "name": "Alfa Clean Abu Dhabi - Hourly Home Cleaning",
+  "description": "منظومة ألفا كلين لإدارة وحجز خدمات تنظيف المنازل بالساعة في أبوظبي - حجز ذكي، إدارة العاملات، وتتبع مباشر",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
